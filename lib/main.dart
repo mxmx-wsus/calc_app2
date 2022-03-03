@@ -1,120 +1,45 @@
-import 'dart:async';
+// 他ファイルとの紐付け
+//「material.dart」は、マテリアルデザインのUIがまとめられたパッケージです
 import 'package:flutter/material.dart';
-import '';
+import 'keybord.dart';
+import 'text_data.dart';
+import 'textfield.dart';
 
+// main関数とはアプリの1番初めに呼び出される関数で、main関数で書いたコードが順に実行されます。
+// runApp関数でWidgetツリーの始まり（root）となるWidgetを指定できます。
+// このコードではMyAppをWidgetツリーの始まりとしています。
+// Arrow関数を使えば、main関数とrunApp関数のコードを1行にまとめることができます。
+// 例：void main() => runApp(MyApp());
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
+// ここのMyAppがアプリ本体となるが「StatelessWidget」はbuild関数が必要。
+// StatelessWidgetに必要なbuild関数をオーバーライドし、
+// MaterialAppインスタンスをreturnします。
+// MaterialAppに用意されている、「home」に実際にアプリ内に表示するWidgetを設定します。
+// 今回はScaffoldという、一般的なデザインの土台となるWidgetを使用しています。
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextField(),
-                Keyboard(),
-              ],
-            )
-        )
-    );
-  }
-}
-
-
-
-//==============================================================================
-// 表示
-class TextField extends StatefulWidget {
-  _TextFiledState createState() => _TextFiledState();
-}
-class _TextFiledState extends State<TextField> {
-  String _expression = '0';
-
-  void _UpdateText(String letter){
-    setState((){
-      if(letter == '=' || letter == 'C')
-        _expression = '';
-      else
-        _expression += letter;
-    });
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        flex: 1,
-        child: Container(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              _expression,
-              style: TextStyle(
-                fontSize: 64.0,
-              ),
-            ),
+      home: Scaffold(
+        // Scaffold内にappBarやbodyなどの箱を作成する。
+          appBar: AppBar(
+            title: const Text(TextData.appTitle),
           ),
-        )
-    );
-  }
-  static final controller = StreamController<String>();
-  @override
-  void initState() {
-    controller.stream.listen((event) => _UpdateText(event));
-  }
-}
-
-//==============================================================================
-// キーボード
-class Keyboard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        flex: 2,
-        child: Center(
-            child: Container(
-              color: const Color(0xff87cefa),
-              child: GridView.count(
-                crossAxisCount: 4,
-                mainAxisSpacing: 3.0,
-                crossAxisSpacing: 3.0,
-                children: [
-                  '7', '8', '9', '÷',
-                  '4', '5', '6', '×',
-                  '1', '2', '3', '-',
-                  'C', '0', '=', '+',
-                ].map((key) {
-                  return GridTile(
-                    child: Button(key),
-                  );
-                }).toList(),
-              ),
-            )
-        )
-    );
-  }
-}
-// キーボタン
-class Button extends StatelessWidget {
-  final _key;
-  Button(this._key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: FlatButton(
-          child: Center(
-            child: Text(
-              _key,
-              style: TextStyle(fontSize: 46.0),
-            ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              MainDisplay(),
+              CalcKeyboard(),
+            ],
           ),
-          onPressed: (){
-            _TextFiledState.controller.sink.add(_key);
-          },
-        )
+      ),
     );
   }
-}
+  }
+
+
+
