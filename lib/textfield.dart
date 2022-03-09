@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 //==============================================================================
@@ -16,8 +17,8 @@ class MainDisplay extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
               _displayController,
-              style: const TextStyle(
-                fontSize: 64.0,
+              style:  TextStyle(
+                fontSize: 64.0.sp,
               ),
             ),
           ),

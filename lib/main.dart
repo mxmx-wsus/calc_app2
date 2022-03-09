@@ -1,6 +1,7 @@
 // 他ファイルとの紐付け
 //「material.dart」は、マテリアルデザインのUIがまとめられたパッケージです
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'keybord.dart';
 import 'text_data.dart';
 import 'textfield.dart';
@@ -23,7 +24,11 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: () => MaterialApp(
       home: Scaffold(
         // Scaffold内にappBarやbodyなどの箱を作成する。
           appBar: AppBar(
@@ -37,9 +42,8 @@ class MyApp extends StatelessWidget {
             ],
           ),
       ),
+    )
     );
   }
   }
-
-
 
