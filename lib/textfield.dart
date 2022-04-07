@@ -1,27 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:async';
 
 
 //==============================================================================
 // 表示
-class MainDisplay extends StatelessWidget {
+//MainDisplayというStatefulWidget（箱）を作ります。
+class MainDisplay extends StatefulWidget {
   const MainDisplay({Key? key}) : super(key : key);
-
-      final String _displayController = '1+1';
+  //StatefulWidgetはbuildメソッドを持たず、createStateメソッドを持ち、これがStateクラスを返します。
+  //MainDisplayの中に以下の部分で作成するDisplayControllerというクラスを突っ込みます。
+  DisplayController createState() => DisplayController();
+}
+//DisplayControllerという表示を更新させるためのクラスを作り、上記のMainDisplayという箱に突っ込みます。
+//_expressionというString(テキストデータ)出力用の箱を突っ込みます。
+class DisplayController extends State<MainDisplay> {
+  String _expression = '';
+  static final controller = StreamController<String>();
+//updateTextというボタンが押された時の関数の箱を作る
+  void updateText(String letter) {
+    setState(() {
+      if (letter == '=' || letter == 'C') {
+        _expression = '';
+      } else {
+        _expression += letter;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
       child: Container(
-          alignment: Alignment.centerRight,
-          child: Text(
-              _displayController,
-              style:  TextStyle(
-                fontSize: 64.0.sp,
-              ),
-            ),
+        alignment: Alignment.centerRight,
+        child: Text(
+          _expression,
+          style: TextStyle(
+            fontSize: 64.0.sp,
           ),
+        ),
+      ),
     );
   }
+
+
+
+  @override
+  void initState() {
+    //controllerが動作を確認（Listen）したら内容をみてupdateTextを実行する。
+    controller.stream.listen((event) => updateText(event));
+  }
 }
+
