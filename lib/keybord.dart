@@ -45,6 +45,7 @@ class CalcButton extends StatelessWidget {
         ),
       ),
       onPressed: (){
+        //ボタンが押されたら「textfield.dart」のDisplauControllerに「_keyWord」を追加する。
         DisplayController.controller.sink.add(_keyWord);
       },
     );

@@ -9,12 +9,14 @@ import 'dart:async';
 class MainDisplay extends StatefulWidget {
   const MainDisplay({Key? key}) : super(key : key);
   //StatefulWidgetはbuildメソッドを持たず、createStateメソッドを持ち、これがStateクラスを返します。
+  //MainDisplayの中に以下の部分で作成するDisplayControllerというクラスを突っ込みます。
   DisplayController createState() => DisplayController();
 }
 //DisplayControllerという表示を更新させるためのクラスを作り、上記のMainDisplayという箱に突っ込みます。
 //_expressionというString(テキストデータ)出力用の箱を突っ込みます。
 class DisplayController extends State<MainDisplay> {
   String _expression = '';
+  static final controller = StreamController<String>();
 //updateTextというボタンが押された時の関数の箱を作る
   void updateText(String letter) {
     setState(() {
@@ -42,10 +44,11 @@ class DisplayController extends State<MainDisplay> {
     );
   }
 
-  static final controller = StreamController<String>();
+
 
   @override
   void initState() {
+    //controllerが動作を確認（Listen）したら内容をみてupdateTextを実行する。
     controller.stream.listen((event) => updateText(event));
   }
 }
