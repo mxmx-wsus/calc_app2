@@ -11,20 +11,20 @@ class CalcKeyboard extends StatelessWidget {
         flex: 2,
         child: AspectRatio(
           aspectRatio:  1 / 1 ,
-              child: GridView.count(
-                physics: const NeverScrollableScrollPhysics(),  //スクロール禁止
-                crossAxisCount: 4,  //横に４列並べます
-                children: [
-                  '7', '8', '9', '÷',
-                  '4', '5', '6', '×',
-                  '1', '2', '3', '-',
-                  'C', '0', '=', '+',
-                ].map((keyWord) {
-                  return GridTile(
-                    child: CalcButton(keyWord),
-                  );
-                }).toList(),
-              ),
+          child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            children: [
+              '7', '8', '9', '÷',
+              '4', '5', '6', '×',
+              '1', '2', '3', '-',
+              'C', '0', '=', '+',
+            ].map((keyWord) {
+              return GridTile(
+                child: CalcButton(keyWord),
+              );
+            }).toList(),
+          ),
 
         )
     );
@@ -45,6 +45,7 @@ class CalcButton extends StatelessWidget {
         ),
       ),
       onPressed: (){
+        //ボタンが押されたら「textfield.dart」のDisplauControllerに「_keyWord」を追加する。
         DisplayController.controller.sink.add(_keyWord);
       },
     );
