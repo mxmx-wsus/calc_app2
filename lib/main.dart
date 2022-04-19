@@ -9,21 +9,21 @@ import 'textfield.dart';
 // main関数とはアプリの1番初めに呼び出される関数で、main関数で書いたコードが順に実行されます。
 // runApp関数でWidgetツリーの始まり（root）となるWidgetを指定できます。
 // このコードではMyAppをWidgetツリーの始まりとしています。
-// Arrow関数を使えば、main関数とrunApp関数のコードを1行にまとめることができます。
-// 例：void main() => runApp(MyApp());
+
+//main()関数があって、MyAppをスクリーンに表示するように書かれています。MyAppはクラスで名前は何でもいいです。
 void main() {
   runApp(const MyApp());
 }
-
-// ここのMyAppがアプリ本体となるが「StatelessWidget」はbuild関数が必要。
-// StatelessWidgetに必要なbuild関数をオーバーライドし、
-// MaterialAppインスタンスをreturnします。
-// MaterialAppに用意されている、「home」に実際にアプリ内に表示するWidgetを設定します。
-// 今回はScaffoldという、一般的なデザインの土台となるWidgetを使用しています。
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  //コンストラクタ に key が渡されています。
+  // MyApp の stateless ウィジェットで title を渡していますが、key はデフォルトでユニークなものが渡されます。
+  //「: super(key: key)」について
+  // Redirecting constructors と呼ばれる手法で、別のコンストラクタの処理を追加で行なっています。親クラスにもキーを渡しているんですね。
   @override
   Widget build(BuildContext context) {
+    //引数に context が呼ばれています。
+    // この context の中にどこでどういう風に作成されたかの情報を含んでいます。
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

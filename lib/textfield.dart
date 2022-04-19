@@ -10,6 +10,7 @@ class MainDisplay extends StatefulWidget {
   const MainDisplay({Key? key}) : super(key : key);
   //StatefulWidgetはbuildメソッドを持たず、createStateメソッドを持ち、これがStateクラスを返します。
   //MainDisplayの中に以下の部分で作成するDisplayControllerというクラスを突っ込みます。
+  @override
   DisplayController createState() => DisplayController();
 }
 //DisplayControllerという表示を更新させるためのクラスを作り、上記のMainDisplayという箱に突っ込みます。
@@ -20,9 +21,11 @@ class DisplayController extends State<MainDisplay> {
 //updateTextというボタンが押された時の関数の箱を作る
   void updateText(String letter) {
     setState(() {
+      //もし「=」か「C」が押されたら空にする
       if (letter == '=' || letter == 'C') {
         _expression = '';
       } else {
+        //上記以外だったら「letter」の値を追記する。
         _expression += letter;
       }
     });
@@ -52,4 +55,3 @@ class DisplayController extends State<MainDisplay> {
     controller.stream.listen((event) => updateText(event));
   }
 }
-
