@@ -51,7 +51,13 @@ class DisplayController extends State<MainDisplay> {
 
   @override
   void initState() {
+    super.initState();
     //controllerが動作を確認（Listen）したら内容をみてupdateTextを実行する。
     controller.stream.listen((event) => updateText(event));
   }
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 }
