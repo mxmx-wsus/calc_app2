@@ -4,9 +4,9 @@ class CalcSystem {
   static final List<double> _number = [];
   static final List<String>  _op = [];
   static String _numberBuffer = '';
+  static const double _result = 0.0;
 
   static void getKey(String letter) {
-    //TODO ボタンが入力されたらCalcSystem配列に格納するという内容を記載する。
     if (_checkOperator.contains(letter)) {
       //四則演算子が入力された場合
       _op.add(letter);
@@ -29,8 +29,14 @@ class CalcSystem {
   }
     //計算処理
     static String execute() {
-      int result = 0;
-      return result.toString();
+      //最後に入力された数字を「_number」に格納する。
+      _number.add(double.parse(_numberBuffer));
+      //もし「_number」が空っぽだったら「0」を返す。
+      if (_number.isEmpty){
+        return '0';
+      }
+      //TODO for文とif文を使用し、計算処理をきさいする。
+      return _result.toString();
   }
 }
 
