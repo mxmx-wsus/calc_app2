@@ -28,8 +28,8 @@ class DisplayController extends State<MainDisplay> {
       }
       else if(letter == '='){
         _expression = '';
-        var ans = Calculation.execute();
-        _expression = ans;
+        var ans = CalcSystem.execute();
+        controller.sink.add(ans);
       }
       else {
         //上記以外だったら「letter」の値を追記する。
