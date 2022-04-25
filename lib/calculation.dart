@@ -4,7 +4,7 @@ class CalcSystem {
   static final List<double> _number = [];
   static final List<String>  _op = [];
   static String _numberBuffer = '';
-  static const double _result = 0.0;
+  static double _result = 0.0;
 
   static void getKey(String letter) {
     if (_checkOperator.contains(letter)) {
@@ -35,7 +35,22 @@ class CalcSystem {
       if (_number.isEmpty){
         return '0';
       }
-      //TODO for文とif文を使用し、計算処理をきさいする。
+      //1項目を「_result」とし、これに「_number」を計算していく
+      _result = _number[0];
+      for (int i = 0; i < _op.length; i + 1 ){
+        if (_op[i] == '+'){
+          _result += _number[i + 1];
+        }
+        else if (_op[i] == '-'){
+          _result -= _number[i + 1];
+        }
+        else if (_op[i] == '×'){
+          _result *= _number[i + 1];
+        }
+        else if (_op[i] == '÷'){
+          _result /= _number[i + 1];
+        }
+      }
       return _result.toString();
   }
 }
