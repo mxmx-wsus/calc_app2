@@ -1,3 +1,5 @@
+import 'text_data.dart';
+
 const List<String> _checkOperator = ['+','-','×','÷'];
 
 class CalcSystem {
@@ -13,12 +15,12 @@ class CalcSystem {
       _number.add(double.parse(_numberBuffer));
       _numberBuffer = '';
     }
-    else if (letter == 'C') {
+    else if (letter == TextData.clear) {
       _op.clear();
       _number.clear();
       _numberBuffer = '';
     }
-    else if (letter == '=') {
+    else if (letter == TextData.equal) {
       //returnして以下の計算処理に進む。
       return;
     }
@@ -37,18 +39,18 @@ class CalcSystem {
       }
       //1項目を「_result」とし、これに「_number」を計算していく
       _result = _number[0];
-      for (int i = 0; i < _op.length; i + 1 ){
-        if (_op[i] == '+'){
-          _result += _number[i + 1];
+      for (int i = 0; i < _op.length; i++ ){
+        if (_op[i] ==  TextData.plus){
+          _result += _number[ i++ ];
         }
-        else if (_op[i] == '-'){
-          _result -= _number[i + 1];
+        else if (_op[i] == TextData.minus){
+          _result -= _number[ i++ ];
         }
-        else if (_op[i] == '×'){
-          _result *= _number[i + 1];
+        else if (_op[i] == TextData.mult){
+          _result *= _number[ i++ ];
         }
-        else if (_op[i] == '÷'){
-          _result /= _number[i + 1];
+        else if (_op[i] == TextData.div){
+          _result /= _number[ i++ ];
         }
       }
       return _result.toString();
