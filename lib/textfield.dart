@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
-
+import 'calculation.dart';
+import 'text_data.dart';
 
 //==============================================================================
 // 表示
@@ -22,9 +23,15 @@ class DisplayController extends State<MainDisplay> {
   void updateText(String letter) {
     setState(() {
       //もし「=」か「C」が押されたら空にする
-      if (letter == '=' || letter == 'C') {
+      if (letter == TextData.clear) {
         _expression = '';
-      } else {
+      }
+      else if(letter == TextData.equal){
+        _expression = '';
+        final String ans = CalcSystem.execute();
+        controller.sink.add(ans);
+      }
+      else {
         //上記以外だったら「letter」の値を追記する。
         _expression += letter;
       }
