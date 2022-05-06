@@ -53,7 +53,12 @@ class CalcSystem {
           _result /= _number[ i++ ];
         }
       }
-      return _result.toString();
+      _number.clear();
+      _op.clear();
+      _numberBuffer = '';
+
+      var resultStr = _result.toString().split('.');
+      return resultStr[1] == '0' ? resultStr[0] : _result.toString();
   }
 }
 
