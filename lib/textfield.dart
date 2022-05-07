@@ -18,7 +18,7 @@ class MainDisplay extends StatefulWidget {
 //_expressionというString(テキストデータ)出力用の箱を突っ込みます。
 class DisplayController extends State<MainDisplay> {
   String _expression = '';
-  static final controller = StreamController<String>();
+  static final controller = StreamController.broadcast();
 //updateTextというボタンが押された時の関数の箱を作る
   void updateText(String letter) {
     setState(() {
@@ -61,6 +61,7 @@ class DisplayController extends State<MainDisplay> {
     super.initState();
     //controllerが動作を確認（Listen）したら内容をみてupdateTextを実行する。
     controller.stream.listen((event) => updateText(event));
+    controller.stream.listen((event) => CalcSystem.getKey(event));
   }
   @override
   void dispose() {
