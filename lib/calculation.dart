@@ -1,7 +1,5 @@
 import 'text_data.dart';
 
-const List<String> _checkOperator = ['+','-','×','÷'];
-
 class CalcSystem {
   static final List<double> _number = [];
   static final List<String>  _op = [];
@@ -9,7 +7,7 @@ class CalcSystem {
   static double _result = 0.0;
 
   static void getKey(String letter) {
-    if (_checkOperator.contains(letter)) {
+    if (TextData.checkOperator.contains(letter)) {
       //四則演算子が入力された場合
       _op.add(letter);
       _number.add(double.parse(_numberBuffer));
@@ -41,16 +39,19 @@ class CalcSystem {
       _result = _number[0];
       for (int i = 0; i < _op.length; i++ ){
         if (_op[i] ==  TextData.plus){
-          _result += _number[ i++ ];
+          _result += _number[ i + 1 ];
         }
         else if (_op[i] == TextData.minus){
-          _result -= _number[ i++ ];
+          _result -= _number[ i + 1 ];
         }
         else if (_op[i] == TextData.mult){
-          _result *= _number[ i++ ];
+          _result *= _number[ i + 1 ];
         }
-        else if (_op[i] == TextData.div){
-          _result /= _number[ i++ ];
+        else if (_op[i] == TextData.div && _number[i + 1] != 0){
+          _result /= _number[ i + 1 ] ;
+        }
+        else {
+          return TextData.error;
         }
       }
       _number.clear();

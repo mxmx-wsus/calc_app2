@@ -7,5 +7,8 @@ class TextData{
   static const String minus = '-';
   static const String mult = '×';
   static const String div = '÷';
+  static const String error = 'Error';
+  static const  List<String> checkOperator = ['+','-','×','÷'];
+
 
 }
